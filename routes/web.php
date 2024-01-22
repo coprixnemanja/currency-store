@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = Currency::paginate(100);
+    return view('home',['currencies_paginator'=>$data]);
 });
