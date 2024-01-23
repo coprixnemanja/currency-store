@@ -5,9 +5,12 @@ namespace App\Services\CurrencyConversion;
 use App\Services\CurrencyConversion\CurrencyConversionInterface;
 use App\Models\Currency;
 use App\Models\CurrencyOrder;
+use App\Services\ClientNotification\ClientNotificationInterface;
 
 class SimpleCurrencyConversion implements CurrencyConversionInterface
 {
+    public function __construct(public ClientNotificationInterface $notificationService) {
+    }
 
 
     public function calculatePriceInUSD(Currency $currency, int $amount): float
@@ -34,6 +37,9 @@ class SimpleCurrencyConversion implements CurrencyConversionInterface
         ]);
         if (!$model->save()) {
             return false;
+        }
+        if($currency->send_order_email){
+            $this->notificationService->sendSuccessfulOrder($model);
         }
         return $model;
     }

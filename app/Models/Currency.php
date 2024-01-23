@@ -17,4 +17,8 @@ class Currency extends Model
         'send_order_email',
         'discount'
     ];
+
+    protected $casts = [
+        'send_order_email' => 'boolean',
+    ];
 }
