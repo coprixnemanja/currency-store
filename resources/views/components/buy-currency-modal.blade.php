@@ -1,6 +1,7 @@
 @props(['currency'])
 
 <div class="modal-window">
+    <div id="notification_placeholder"></div>
     <ul>
         <li>Name: {{ $currency->name }}</li>
         <li>Signature: {{ $currency->signature }}</li>
@@ -8,16 +9,17 @@
         <li>Surcharge:{{ $currency->surcharge }}%</li>
     </ul>
     <p>Enter amount</p>
-    <input hx-get="api/currency/{{ $currency->id }}/calculate-price" hx-trigger='input' hx-target='#price-display'
+    <input min="1" max="1000" value="1" hx-get="api/currency/{{ $currency->id }}/calculate-price" hx-trigger='input' hx-target='#price-display' hx-target-4*='#notification_placeholder'
         hx-swap="innerHTML" hx-include="#amount" class='centered' name="amount" type="number" id="amount"
         placeholder="Amount"
         />
     <br>
-    <div id="price-display"></div>
+    <div>Price: $</div><div id="price-display"></div>
     <br>
     <button
         class='centered'
         hx-post="api/currency/{{$currency->id}}/buy"
         hx-include="#amount"
+        hx-target='#notification_placeholder'
         hx-confirm="Are you sure you want to buy the entered amount of {{$currency->name}}?">BUY</button>
 </div>

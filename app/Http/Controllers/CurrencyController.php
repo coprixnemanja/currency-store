@@ -16,7 +16,10 @@ class CurrencyController extends Controller
 
     public function show(string $id)
     {
-        $model = Currency::findOrFail($id);
+        $model = Currency::find($id);
+        if (is_null($model)) {
+            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        }
         return view('components.buy-currency-modal', ['currency' => $model]);
     }
 
@@ -25,18 +28,38 @@ class CurrencyController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'amount' => ['required', 'integer', 'min:1']
-            ],
-            [
-                'required' => 'The :attribute field is required.',
-                'integer' => 'The :attribute must be a whole number.',
-                'min:1' => 'The :attribute must be minimum 1.',
+                'amount' => ['required', 'integer', 'min:1', 'max:10000']
             ]
         );
         if ($validator->fails()) {
-            return "Amount must be a whole number and minimum 1.";
+            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 10000!"]), 400);
         }
-        $model = Currency::findOrFail($id);
-        return "Price: $" . $this->currencyConversionService->calculatePriceInUSD($model,$request->integer('amount'));
+        $model = Currency::find($id);
+        if (is_null($model)) {
+            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        }
+        return $this->currencyConversionService->calculatePriceInUSD($model, $request->integer('amount'));
+    }
+
+    public function buy(string $id, Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'amount' => ['required', 'integer', 'min:1', 'max:10000']
+            ]
+        );
+        if ($validator->fails()) {
+            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 10000!"]), 500);
+        }
+        $model = Currency::find($id);
+        if (is_null($model)) {
+            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        }
+        $order = $this->currencyConversionService->buy($model, $request->integer('amount'));
+        if ($order === false) {
+            return response(view('components.info.error', ['message' => "Can not record your order. Please try again later."]), 500);
+        }
+        return view('components.currency-order', ['order' => $order]);
     }
 }

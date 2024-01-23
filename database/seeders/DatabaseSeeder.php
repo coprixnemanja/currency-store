@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Currency;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +13,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Currency::insert([
+            [
+                'name' => 'Japanese Yen',
+                'signature' => 'JPY',
+                'rate' => 107.17,
+                'surcharge' => 7.5,
+                'send_order_email' => false,
+                'discount' => 0,
+                'created_at' => Carbon::now()->utc(),
+                'updated_at' => Carbon::now()->utc()
+            ],
+            [
+                'name' => 'British Pound',
+                'signature' => 'GBP',
+                'rate' => 0.711178,
+                'surcharge' => 5,
+                'send_order_email' => true,
+                'discount' => 0,
+                'created_at' => Carbon::now()->utc(),
+                'updated_at' => Carbon::now()->utc()
+            ],
+            [
+                'name' => 'Euro',
+                'signature' => 'EUR',
+                'rate' => 0.884872,
+                'surcharge' => 5,
+                'send_order_email' => false,
+                'discount' => 2,
+                'created_at' => Carbon::now()->utc(),
+                'updated_at' => Carbon::now()->utc()
+            ],
+        ]);
     }
 }

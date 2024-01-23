@@ -17,6 +17,7 @@
                 hx-get="api/currency/{{$item->id}}"
                 hx-trigger='click'
                 hx-target='#{{$target}}'
+                hx-target-500='#{{$target}}'
                 hx-swap="innerHTML">
                 SELECT</button></td>
         </tr>
