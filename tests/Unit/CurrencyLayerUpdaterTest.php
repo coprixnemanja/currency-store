@@ -95,8 +95,9 @@ class CurrencyLayerUpdaterTest extends TestCase
             ]
         )->andReturn($response);
         $response->shouldReceive('ok')->andReturn(true);
+        //Make mocked data with non existent currency pairs
         foreach ($currencies as $currency) {
-            $updateData["USDNON"] = $this->faker->randomFloat(8, 0, 10);
+            $updateData["USD---"] = $this->faker->randomFloat(8, 0, 10);
         }
         $response->shouldReceive('json')->andReturn([
             "quotes" => $updateData
