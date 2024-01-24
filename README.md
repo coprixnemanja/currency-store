@@ -11,6 +11,7 @@ Simple Laravel Htmx application that enables the purchase of a number different 
     1. ```composer install --dev```
 3. Setup ```.env``` file:
     1. Create the ```.env``` file from the example file ```cp example.env .env```
+    2. Generate app key ```php artisan key:generate```
 4. Setup database:
     1. Create new database and past name as the value of ```DB_DATABASE``` inside the ```.env``` file
     2. Set password ```DB_PASSWORD``` and username ```DB_USERNAME``` inside the ```.env``` file to be able to connect to your database.
@@ -27,7 +28,9 @@ Simple Laravel Htmx application that enables the purchase of a number different 
     3. Paste the email address of the google account as the value of ```MAIL_USERNAME``` inside the ```.env``` file
     4. Follow instructions from this [link](https://support.google.com/mail/answer/185833?hl=en) to setup app password four your gmail.
     5. Paste the app password of the google account as the value of ```MAIL_PASSWORD``` inside the ```.env``` file
-7. Run ```php artisan serve``` and follow the link.
+7. Finishing up:
+    1. Run ```php artisan optimize```
+    2. Run ```php artisan serve``` and follow the link.
 
 ## Update exchange rates
 
