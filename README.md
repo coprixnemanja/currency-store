@@ -27,7 +27,11 @@ Simple Laravel Htmx application that enables the purchase of a number different 
     3. Paste the email address of the google account as the value of ```MAIL_USERNAME``` inside the ```.env``` file
     4. Follow instructions from this [link](https://support.google.com/mail/answer/185833?hl=en) to setup app password four your gmail.
     5. Paste the app password of the google account as the value of ```MAIL_PASSWORD``` inside the ```.env``` file
-6. Run ```php artisan serve``` and follow the link.
+7. Run ```php artisan serve``` and follow the link.
+
+## Update exchange rates
+
+- Run command ```php artisan app:update-rates```
 
 
 ## DISCLAIMER
