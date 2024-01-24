@@ -2,10 +2,12 @@
 
 namespace App\Services\CurrencyConversion;
 
+use App\Exceptions\DatabaseException;
 use App\Services\CurrencyConversion\CurrencyConversionInterface;
 use App\Models\Currency;
 use App\Models\CurrencyOrder;
 use App\Services\ClientNotification\ClientNotificationInterface;
+use PDOException;
 
 class SimpleCurrencyConversion implements CurrencyConversionInterface
 {
@@ -35,8 +37,10 @@ class SimpleCurrencyConversion implements CurrencyConversionInterface
             'discount_percentage' => $currency->discount,
             'discount_amount' => round($discount,4)
         ]);
-        if (!$model->save()) {
-            return false;
+        try {
+            $model->saveOrFail();
+        } catch (\PDOException $e) {
+            throw DatabaseException::connectionException();
         }
         if($currency->send_order_email){
             $this->notificationService->sendSuccessfulOrder($model);

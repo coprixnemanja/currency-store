@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\DatabaseException;
+use App\Exceptions\RequestValidationException;
 use App\Models\Currency;
 use App\Services\CurrencyConversion\CurrencyConversionInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,16 +16,18 @@ class CurrencyController extends Controller
         private CurrencyConversionInterface $currencyConversionService
     ) {
     }
-    public function index(){
+    public function index()
+    {
         $data = Currency::paginate(5);
-        return view('components.currency-table',['data'=>$data]);
+        return view('components.currency-table', ['data' => $data]);
     }
 
     public function show(string $id)
     {
-        $model = Currency::find($id);
-        if (is_null($model)) {
-            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        try {
+            $model = Currency::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return DatabaseException::modelNotFoundException('currency',$id)->render(null);
         }
         return view('components.buy-currency-modal', ['currency' => $model]);
     }
@@ -36,11 +41,12 @@ class CurrencyController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 100000!"]), 400);
+            return RequestValidationException::validationFail($validator->errors())->render($request);
         }
-        $model = Currency::find($id);
-        if (is_null($model)) {
-            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        try {
+            $model = Currency::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return DatabaseException::modelNotFoundException('currency',$id)->render($request);
         }
         return $this->currencyConversionService->calculatePriceInUSD($model, $request->integer('amount'));
     }
@@ -54,16 +60,14 @@ class CurrencyController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 100000!"]), 500);
+            return RequestValidationException::validationFail($validator->errors())->render($request);
         }
-        $model = Currency::find($id);
-        if (is_null($model)) {
-            return response(view('components.info.error', ['message' => "Can not find currency of id: $id in the DB."]), 500);
+        try {
+            $model = Currency::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return DatabaseException::modelNotFoundException('currency',$id)->render($request);
         }
         $order = $this->currencyConversionService->buy($model, $request->integer('amount'));
-        if ($order === false) {
-            return response(view('components.info.error', ['message' => "Can not record your order. Please try again later."]), 500);
-        }
         return view('components.currency-order', ['order' => $order]);
     }
 }
