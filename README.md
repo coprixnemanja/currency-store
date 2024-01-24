@@ -1,10 +1,12 @@
 ## About
 
-Simple Laravel Htmx application that enables the purchase of a number of currencies using USD.
+Simple Laravel Htmx application that enables the purchase of a number different currencies of currencies using USD.
 
 ## Setup
 
-- Clone repository: 
+1. Clone repository:
+    ```git clone https://github.com/nmilink/currency-store.git```
+    ```cd currency-store```
 - Install composer dependencies
 - Connect database
 - Run migrations
