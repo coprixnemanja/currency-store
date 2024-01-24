@@ -25,7 +25,7 @@ Simple Laravel Htmx application that enables the purchase of a number different 
     1. Set the value of ```MAIL_STATIC_CURRENCY_ORDER``` inside the ```.env``` file to the email address where you want to receive order confirmations.
     2. Create new gmail account or use existing one.
     3. Paste the email address of the google account as the value of ```MAIL_USERNAME``` inside the ```.env``` file
-    4. Follow instructions from this [link]() to setup app password four your gmail.
+    4. Follow instructions from this [link](https://support.google.com/mail/answer/185833?hl=en) to setup app password four your gmail.
     5. Paste the app password of the google account as the value of ```MAIL_PASSWORD``` inside the ```.env``` file
 6. Run ```php artisan serve``` and follow the link.
 
