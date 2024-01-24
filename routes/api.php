@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurrencyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+Route::get('currencies', [CurrencyController::class,'index']);
+Route::get('currencies/{id}', [CurrencyController::class,'show']);
+Route::get('currencies/{id}/calculate-price', [CurrencyController::class,'calculatePrice']);
+Route::post('currencies/{id}/buy', [CurrencyController::class,'buy']);

@@ -14,6 +14,7 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'smtp'),
+    'static_email' => env('MAIL_STATIC_CURRENCY_ORDER'),
 
     /*
     |--------------------------------------------------------------------------

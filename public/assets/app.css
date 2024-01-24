@@ -1,0 +1,96 @@
+#buy_currency_placeholder{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width:80%;
+    min-height: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 30px;
+    padding-bottom: 10px;
+    
+}
+#amount{
+    width: 60%;
+}
+#pagination{
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+#pagination button{
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#pagination div{
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#currency_table {
+    position: relative;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+#currency_table td {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+}
+
+
+.modal-window {
+    position: relative;
+    width: 30%;
+    height: 60%;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.centered {
+    margin: auto;
+    display: block;
+}
+
+p {
+    text-align:center; 
+  }
+
+.error{
+    background-color:lightcoral;
+}
+.success{
+    background-color:lightseagreen;
+}
+
+.notification {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
