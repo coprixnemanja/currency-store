@@ -1,25 +1,34 @@
-@props(['data','target'])
-
 <table id="currency_table">
-    <tr>
-        <th>Name</th>
-        <th>Signature</th>
-        <th>Excange rate</th>
-        <th>Surcharge</th>
-    </tr>
-    @foreach ($data->items() as $item)
+    <thead>
         <tr>
-            <td>{{$item->name}}</td>
-            <td>{{$item->signature}}</td>
-            <td>{{$item->rate}}</td>
-            <td>{{$item->surcharge}}</td>
-            <td><button 
-                hx-get="api/currency/{{$item->id}}"
-                hx-trigger='click'
-                hx-target='#{{$target}}'
-                hx-target-500='#{{$target}}'
-                hx-swap="innerHTML">
-                SELECT</button></td>
+            <th>Name</th>
+            <th>Signature</th>
+            <th>Excange rate</th>
+            <th>Surcharge</th>
         </tr>
-    @endforeach
+    </thead>
+    <tbody>
+        @foreach ($data->items() as $item)
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->signature }}</td>
+                <td>{{ $item->rate }}</td>
+                <td>{{ $item->surcharge }}</td>
+                <td><button hx-get="api/currencies/{{ $item->id }}" hx-trigger='click'
+                        hx-target='#buy_currency_placeholder' hx-swap="innerHTML">
+                        SELECT</button></td>
+            </tr>
+        @endforeach
+    </tbody>
 </table>
+<div id="pagination">
+    @if ($data->previousPageUrl())
+        <button hx-get="{{ $data->previousPageUrl() }}" hx-trigger="click" hx-target='#table-placeholder'>
+            << </button>
+    @endif
+
+    <div>Page: {{ $data->currentPage() }}</div>
+    @if ($data->nextPageUrl())
+        <button hx-get="{{ $data->nextPageUrl() }}" hx-trigger="click" hx-target='#table-placeholder'>>></button>
+    @endif
+</div>

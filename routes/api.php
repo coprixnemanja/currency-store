@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('currency/{id}', [CurrencyController::class,'show']);
-Route::get('currency/{id}/calculate-price', [CurrencyController::class,'calculatePrice']);
-Route::post('currency/{id}/buy', [CurrencyController::class,'buy']);
+Route::get('currencies', [CurrencyController::class,'index']);
+Route::get('currencies/{id}', [CurrencyController::class,'show']);
+Route::get('currencies/{id}/calculate-price', [CurrencyController::class,'calculatePrice']);
+Route::post('currencies/{id}/buy', [CurrencyController::class,'buy']);

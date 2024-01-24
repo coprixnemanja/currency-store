@@ -1,5 +1,3 @@
-@props(['currencies_paginator'])
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,12 +11,11 @@
 </head>
 
 <body hx-ext="response-targets">
-    
-    <x-currency-table :target="'buy_currency_placeholder'" :data="$currencies_paginator"/>
-    <div id="buy_currency_placeholder" class="modal-carier"></div>
-    <div id="notification_placeholder" class="modal-carier"></div>
 
-    
+    <div hx-get="api/currencies" hx-trigger="load" hx-target='#table-placeholder' hx-swap="innerHTML">
+    <div id="table-placeholder"></div>
+    <div id="buy_currency_placeholder"></div>
+
 </body>
 <footer>
     

@@ -13,6 +13,10 @@ class CurrencyController extends Controller
         private CurrencyConversionInterface $currencyConversionService
     ) {
     }
+    public function index(){
+        $data = Currency::paginate(5);
+        return view('components.currency-table',['data'=>$data]);
+    }
 
     public function show(string $id)
     {
@@ -28,11 +32,11 @@ class CurrencyController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'amount' => ['required', 'integer', 'min:1', 'max:10000']
+                'amount' => ['required', 'integer', 'min:1', 'max:100000']
             ]
         );
         if ($validator->fails()) {
-            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 10000!"]), 400);
+            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 100000!"]), 400);
         }
         $model = Currency::find($id);
         if (is_null($model)) {
@@ -46,11 +50,11 @@ class CurrencyController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'amount' => ['required', 'integer', 'min:1', 'max:10000']
+                'amount' => ['required', 'integer', 'min:1', 'max:100000']
             ]
         );
         if ($validator->fails()) {
-            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 10000!"]), 500);
+            return response(view('components.info.error', ['message' => "Amount must be a whole number between 1 and 100000!"]), 500);
         }
         $model = Currency::find($id);
         if (is_null($model)) {
