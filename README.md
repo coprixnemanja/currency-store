@@ -5,8 +5,8 @@ Simple Laravel Htmx application that enables the purchase of a number different 
 ## Setup
 
 1. Clone repository:
-    ```git clone https://github.com/nmilink/currency-store.git```
-    ```cd currency-store```
+    - git clone https://github.com/nmilink/currency-store.git
+    - cd currency-store
 - Install composer dependencies
 - Connect database
 - Run migrations
